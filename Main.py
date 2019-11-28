@@ -27,13 +27,13 @@ SurprisedData = []
 flag = 0
 i=0
 
-name = 'Test4.mp4'
+name = 'Test1.mp4'
 
 # Opens the Video file
-cap= cv2.VideoCapture(name)
-print('------------------------------------------------------')
+cap= cv2.VideoCapture('TestDataset/'+name)
+print('------------------------------------------------------------------')
 print('Reading Video -',name)
-print('------------------------------------------------------')
+print('------------------------------------------------------------------')
 
 #Calculating FPS
 # Find OpenCV version
@@ -49,17 +49,17 @@ print('FPS of video -',fps)
 
 while(cap.isOpened()):
     ret, frame = cap.read()
+#    plt.imshow(frame)
     if i%fps == 0:
         if ret == False:
             break
         img = frame
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        margin = 30
+        margin = 10
         faces = face_cascade.detectMultiScale(gray, 1.3, 3)
         for (x,y,w,h) in faces:
             flag = 1
             croppedFace = img[y-margin-10:y+h+margin+10, x-margin:x+w+margin]
-                    
         if len(faces):
             finalImage=cv2.resize(croppedFace,(width ,height))
             image = finalImage.astype("float") / 255.0
